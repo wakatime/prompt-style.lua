@@ -30,13 +30,20 @@
 [![github/repo-size](https://shields.io/github/repo-size/Freed-Wu/prompt-style.lua)](https://github.com/Freed-Wu/prompt-style.lua)
 [![github/v](https://shields.io/github/v/release/Freed-Wu/prompt-style.lua)](https://github.com/Freed-Wu/prompt-style.lua)
 
-[![luarocks](https://img.shields.io/luarocks/v/Freed-Wu/prompt-style)](https://luarocks.org/modules/Freed-Wu)
+[![luarocks](https://img.shields.io/luarocks/v/Freed-Wu/prompt-style)](https://luarocks.org/modules/Freed-Wu/prompt-style)
 
 [Powerlevel10k](https://github.com/romkatv/powerlevel10k) style for [luaprompt](https://github.com/dpapavas/luaprompt).
+Include REPLs for neovim and luatex.
 
-![screenshot](https://user-images.githubusercontent.com/32936898/255322845-c4c6e13c-3b39-4315-b09b-206a1a7783ea.png)
+![luap](https://user-images.githubusercontent.com/32936898/255322845-c4c6e13c-3b39-4315-b09b-206a1a7783ea.png)
+
+![nvimp](https://github.com/Freed-Wu/prompt-style.lua/assets/32936898/8d0b4863-15c6-4966-b8af-219c9c40c1ae)
+
+![texluap](https://github.com/Freed-Wu/prompt-style.lua/assets/32936898/96d9f4c1-55fc-4ae3-87b8-7afd29f4ba0e)
 
 ## Usage
+
+`~/.config/luaprc.lua`:
 
 ```lua
 local prompt = require "prompt"
@@ -49,3 +56,19 @@ prompt.prompts = { prompt_style.generate_ps1(), "    " }
 
 See
 [![readthedocs](https://shields.io/readthedocs/prompt-stylelua)](https://prompt-stylelua.readthedocs.io).
+
+## Install
+
+### [AUR](https://aur.archlinux.org/packages/lua-prompt-style)
+
+```sh
+yay -S lua{,51,52,53}-prompt-style
+```
+
+**NOTE**: neovim, luatex use some specific version of lua.
+
+### [Luarocks](https://luarocks.org/modules/Freed-Wu/prompt-style)
+
+```sh
+luarocks install prompt-style
+```
