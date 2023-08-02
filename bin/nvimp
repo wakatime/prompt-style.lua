@@ -2,6 +2,8 @@
 local string = require "string"
 local package = require "package"
 local version = string.gsub(_VERSION, ".* ", "")
+local path = package.path
+local cpath = package.cpath
 package.path = package.path .. ";/usr/share/lua/" .. version .. "/?.lua;/usr/share/lua/" .. version .. "/?/init.lua"
 local ext = string.match(package.cpath, '([^.]+)[;|$]')
 package.cpath = package.cpath .. ";/usr/lib/lua/" .. version .. "/?." .. ext
@@ -30,4 +32,6 @@ for _, name in ipairs { os.getenv('HOME') .. '/.luaprc.lua',
     end
 end
 
+package.path = path
+package.cpath = cpath
 prompt.enter()
