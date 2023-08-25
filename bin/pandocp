@@ -1,0 +1,37 @@
+#!/usr/bin/env -S pandoc -fmarkdown /dev/null --lua-filter
+local string = require "string"
+local package = require "package"
+local version = string.gsub(_VERSION, ".* ", "")
+local path = package.path
+local cpath = package.cpath
+package.path = package.path .. ";/usr/share/lua/" .. version .. "/?.lua;/usr/share/lua/" .. version .. "/?/init.lua"
+local ext = string.match(package.cpath, '([^.]+)[;|$]')
+package.cpath = package.cpath .. ";/usr/lib/lua/" .. version .. "/?." .. ext
+
+local prompt = require "prompt"
+prompt.name = 'pandoc'
+prompt.prompts = { '>  ', '>> ' }
+prompt.colorize = true
+prompt.history = os.getenv('HOME') .. '/.lua_history'
+
+for _, name in ipairs { os.getenv('HOME') .. '/.luaprc.lua',
+    os.getenv('HOME') .. '/.config/luaprc.lua' } do
+    local f = io.open(name, "r")
+    if f ~= nil then
+        io.close(f)
+
+        chunk, message = loadfile(name)
+
+        if chunk then
+            chunk()
+        else
+            print(message)
+        end
+
+        break
+    end
+end
+
+package.path = path
+package.cpath = cpath
+prompt.enter()

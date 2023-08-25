@@ -33,7 +33,12 @@
 [![luarocks](https://img.shields.io/luarocks/v/Freed-Wu/prompt-style)](https://luarocks.org/modules/Freed-Wu/prompt-style)
 
 [Powerlevel10k](https://github.com/romkatv/powerlevel10k) style for [luaprompt](https://github.com/dpapavas/luaprompt).
-Include REPLs for neovim and luatex.
+Include REPLs for:
+
+- [neovim](https://neovim.io)
+- [luatex](https://www.luatex.org)
+- [pandoc](https://pandoc.org)
+- [neomutt](https://neomutt.org)
 
 ![luap](https://user-images.githubusercontent.com/32936898/255322845-c4c6e13c-3b39-4315-b09b-206a1a7783ea.png)
 
@@ -65,7 +70,7 @@ See
 yay -S lua{,51,52,53}-prompt-style
 ```
 
-**NOTE**: neovim, luatex use some specific version of lua.
+**NOTE**: REPLs use some specific version of lua.
 
 ### [Luarocks](https://luarocks.org/modules/Freed-Wu/prompt-style)
 

@@ -27,7 +27,9 @@ build = {
     install = {
         bin = {
             "bin/nvimp",
-            "bin/texluap"
+            "bin/texluap",
+            "bin/pandocp",
+            "bin/neomuttp"
         },
     },
 }
