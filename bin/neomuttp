@@ -9,7 +9,7 @@ local ext = string.match(package.cpath, '([^.]+)[;|$]')
 package.cpath = package.cpath .. ";/usr/lib/lua/" .. version .. "/?." .. ext
 
 local prompt = require "prompt"
-prompt.name = 'texlua'
+prompt.name = 'neomutt'
 prompt.prompts = { '>  ', '>> ' }
 prompt.colorize = true
 prompt.history = os.getenv('HOME') .. '/.lua_history'

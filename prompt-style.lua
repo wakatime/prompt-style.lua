@@ -4,6 +4,8 @@ local string = require "string"
 local table = require "table"
 local lfs = require "lfs"
 local ansicolors = require "ansicolors"
+local prompt = require "prompt"
+---@diagnostic disable: deprecated
 if table.unpack == nil then table.unpack = unpack end
 
 ---get distribution
@@ -52,12 +54,17 @@ local function get_icon()
 end
 
 ---get version
+---@param name string
 ---@param logo string
+---@param format string
 ---@return string
-local function get_version(logo)
-    logo = logo or " "
+local function get_version(name, logo, format)
+    name = name or prompt.name
+    logo = logo or ""
+    format = format or " %s "
+    name = string.format(format, name)
     local version = string.gsub(_VERSION, ".*%s+", "")
-    return logo .. version
+    return logo .. name .. version
 end
 
 ---get time
@@ -79,18 +86,21 @@ local function get_cwd()
 end
 
 ---generate ps1.
+-- `name` is for `get_version()`
 -- `sections` is an array whose element is like `{ "white", "blue",   get_cwd }`
 -- and its order determine the order of prompt sections.
 -- `sep` is separator. `char` is the last character like `> `
 -- `format` determine the space and by default is ' %s '.
+---@param name string
 ---@param sections {1: integer, 2: integar, 3: string | function(): string}[]
 ---@param sep string
 ---@param char string
 ---@param format string
 ---@return function(): string
-local function generate_ps1(sections, sep, char, format)
+local function generate_ps1(name, sections, sep, char, format)
+    name = name or prompt.name
     sections = sections or {
-        {"black", "yellow", get_icon()}, {"blue", "black", get_version()},
+        {"black", "yellow", get_icon()}, {"blue", "black", get_version(name)},
         {"white", "blue", get_cwd}, {"black", "white", get_time}
     }
     sep = sep or ""
