@@ -86,38 +86,40 @@ local function get_cwd()
 end
 
 ---generate ps1.
--- `name` is for `get_version()`
 -- `sections` is an array whose element is like `{ "white", "blue",   get_cwd }`
 -- and its order determine the order of prompt sections.
--- `sep` is separator. `char` is the last character like `> `
--- `format` determine the space and by default is ' %s '.
----@param name string
----@param sections {1: integer, 2: integar, 3: string | function(): string}[]
----@param sep string
 ---@param char string
----@param format string
+---@param sections {(1: integer, 2: integar, 3: string | function(): string) | string}[]
 ---@return function(): string
-local function generate_ps1(name, sections, sep, char, format)
-    name = name or prompt.name
+local function generate_ps1(char, sections)
+    char = char or "❯ "
     sections = sections or {
-        {"black", "yellow", get_icon()}, {"blue", "black", get_version(name)},
+        ---@diagnostic disable: missing-parameter
+        {"black", "yellow", get_icon()}, {"blue", "black", get_version()},
         {"white", "blue", get_cwd}, {"black", "white", get_time}
     }
-    sep = sep or ""
-    char = char or "❯ "
-    format = format or " %s "
+    local sep = ""
+    local format = " %s "
     return function()
         local ps1 = ""
         local last_bg = ""
         for _, v in ipairs(sections) do
-            local fg, bg, text = table.unpack(v)
-            if type(text) == "function" then text = text() end
-            text = string.format(format, text)
-            if last_bg ~= "" then
-                ps1 = ps1 .. "%{" .. last_bg .. " " .. bg .. "bg}" .. sep
+            if type(v) == "string" then
+                if string.match(v, "%s") then
+                    format = v
+                else
+                    sep = v
+                end
+            else
+                local fg, bg, text = table.unpack(v)
+                if type(text) == "function" then text = text() end
+                text = string.format(format, text)
+                if last_bg ~= "" then
+                    ps1 = ps1 .. "%{" .. last_bg .. " " .. bg .. "bg}" .. sep
+                end
+                ps1 = ps1 .. "%{" .. fg .. " " .. bg .. "bg}" .. text
+                last_bg = bg
             end
-            ps1 = ps1 .. "%{" .. fg .. " " .. bg .. "bg}" .. text
-            last_bg = bg
         end
         ps1 = ps1 .. "%{reset " .. last_bg .. "}"
         return ansicolors(ps1) .. "\n" .. char
