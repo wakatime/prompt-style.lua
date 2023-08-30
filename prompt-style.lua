@@ -114,10 +114,12 @@ local function generate_ps1(char, sections)
                 local fg, bg, text = table.unpack(v)
                 if type(text) == "function" then text = text() end
                 text = string.format(format, text)
-                if last_bg ~= "" then
-                    ps1 = ps1 .. "%{" .. last_bg .. " " .. bg .. "bg}" .. sep
+                if last_bg == "" then
+                    ps1 = ps1 .. "%{" .. fg .. " " .. bg .. "bg}" .. text
+                else
+                    ps1 = ps1 .. "%{" .. last_bg .. " " .. bg .. "bg}" .. sep ..
+                              "%{" .. fg .. "}" .. text
                 end
-                ps1 = ps1 .. "%{" .. fg .. " " .. bg .. "bg}" .. text
                 last_bg = bg
             end
         end
