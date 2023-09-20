@@ -46,6 +46,8 @@ Include REPLs for:
 
 ![texluap](https://github.com/Freed-Wu/prompt-style.lua/assets/32936898/96d9f4c1-55fc-4ae3-87b8-7afd29f4ba0e)
 
+![pandocp](https://github.com/Freed-Wu/prompt-style.lua/assets/32936898/b556effe-6be7-4cf9-b612-b1283d6de721)
+
 ## Usage
 
 `~/.config/luaprc.lua`:
