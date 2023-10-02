@@ -79,3 +79,8 @@ yay -S lua{,51,52,53}-prompt-style
 ```sh
 luarocks install prompt-style
 ```
+
+## Similar Projects
+
+- [neolua](https://github.com/nvim-neorocks/neorocks): Another lua interpreter
+  based on neovim. It doesn't provide a REPL like lua.
