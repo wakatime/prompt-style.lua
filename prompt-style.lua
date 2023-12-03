@@ -8,6 +8,22 @@ local prompt = require "prompt"
 ---@diagnostic disable: deprecated
 if table.unpack == nil then table.unpack = unpack end
 
+---wakatime
+---@param cmd string
+---@return string
+local function wakatime(cmd)
+    cmd = cmd or "wakatime-cli --write --plugin=repl-lua-wakatime --entity-type=app \
+--entity=lua --alternate-language=lua --project=%s"
+    local s, _ = string.find(cmd, "%s")
+    if s ~= nil then
+        cmd = string.format(cmd,
+            string.match(lfs.currentdir(), "[^/]+$")
+        )
+    end
+    os.execute(cmd)
+    return ""
+end
+
 ---get distribution
 ---@return string
 local function get_distribution()
@@ -95,8 +111,9 @@ local function generate_ps1(char, sections)
     char = char or "❯ "
     sections = sections or {
         ---@diagnostic disable: missing-parameter
-        {"black", "yellow", get_icon()}, {"blue", "black", get_version()},
-        {"white", "blue", get_cwd}, {"black", "white", get_time}
+        { "",      "",       wakatime },
+        { "black", "yellow", get_icon() }, { "blue", "black", get_version() },
+        { "white", "blue", get_cwd }, { "black", "white", get_time }
     }
     local sep = ""
     local format = " %s "
@@ -113,23 +130,26 @@ local function generate_ps1(char, sections)
             else
                 local fg, bg, text = table.unpack(v)
                 if type(text) == "function" then text = text() end
-                text = string.format(format, text)
-                if last_bg == "" then
-                    ps1 = ps1 .. "%{" .. fg .. " " .. bg .. "bg}" .. text
-                else
-                    ps1 = ps1 .. "%{" .. last_bg .. " " .. bg .. "bg}" .. sep ..
-                              "%{" .. fg .. "}" .. text
+                if text ~= "" then
+                    text = string.format(format, text)
+                    if last_bg == "" then
+                        ps1 = ps1 .. "%{" .. fg .. " " .. bg .. "bg}" .. text
+                    else
+                        ps1 = ps1 .. "%{" .. last_bg .. " " .. bg .. "bg}" .. sep ..
+                            "%{" .. fg .. "}" .. text
+                    end
+                    last_bg = bg
                 end
-                last_bg = bg
             end
         end
-        ps1 = ps1 .. "%{reset " .. last_bg .. "}"
+        ps1 = ps1 .. "%{reset " .. last_bg .. "}" .. sep
         return ansicolors(ps1) .. "\n" .. char
     end
 end
 
 ---@export
 return {
+    wakatime = wakatime,
     get_distribution = get_distribution,
     get_os = get_os,
     get_icon = get_icon,

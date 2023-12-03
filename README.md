@@ -32,15 +32,21 @@
 
 [![luarocks](https://img.shields.io/luarocks/v/Freed-Wu/prompt-style)](https://luarocks.org/modules/Freed-Wu/prompt-style)
 
-[Powerlevel10k](https://github.com/romkatv/powerlevel10k) style for [luaprompt](https://github.com/dpapavas/luaprompt).
-Include REPLs for:
+[luaprompt](https://github.com/dpapavas/luaprompt) is a good REPL of lua.
+This project provides:
+
+- A prompt with [powerlevel10k](https://github.com/romkatv/powerlevel10k) style.
+- A wakatime plugin to statistic how much time you write lua in REPL.
+
+![luap](https://user-images.githubusercontent.com/32936898/255322845-c4c6e13c-3b39-4315-b09b-206a1a7783ea.png)
+
+Besides lua's REPL, there are many programs written in lua which provide their
+REPLs. This project provides some wrapper scripts to use this plugin for them:
 
 - [neovim](https://neovim.io)
 - [luatex](https://www.luatex.org)
 - [pandoc](https://pandoc.org)
 - [neomutt](https://neomutt.org)
-
-![luap](https://user-images.githubusercontent.com/32936898/255322845-c4c6e13c-3b39-4315-b09b-206a1a7783ea.png)
 
 ![nvimp](https://github.com/Freed-Wu/prompt-style.lua/assets/32936898/8d0b4863-15c6-4966-b8af-219c9c40c1ae)
 
@@ -69,7 +75,7 @@ See
 ### [AUR](https://aur.archlinux.org/packages/lua-prompt-style)
 
 ```sh
-yay -S lua{,51,52,53}-prompt-style
+paru -S lua{,51,52,53}-prompt-style
 ```
 
 **NOTE**: REPLs use some specific version of lua.
@@ -80,7 +86,7 @@ yay -S lua{,51,52,53}-prompt-style
 luarocks install prompt-style
 ```
 
-## Similar Projects
+## Related Projects
 
 - [neolua](https://github.com/nvim-neorocks/neorocks): Another lua interpreter
-  based on neovim. It doesn't provide a REPL like lua.
+  based on neovim like `nvimp`. It doesn't provide a REPL like lua.
