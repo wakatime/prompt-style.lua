@@ -12,8 +12,8 @@ if table.unpack == nil then table.unpack = unpack end
 ---@param cmd string
 ---@return string
 local function wakatime(cmd)
-    cmd = cmd or "wakatime-cli --write --plugin=repl-lua-wakatime --entity-type=app \
---entity=lua --alternate-language=lua --project=%s"
+    cmd = cmd or "wakatime-cli --write --plugin=repl-lua-wakatime \
+--entity-type=app entity=lua --alternate-language=lua --project=%s"
     local s, _ = string.find(cmd, "%s")
     if s ~= nil then
         cmd = string.format(cmd,

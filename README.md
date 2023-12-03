@@ -67,6 +67,10 @@ prompt.prompts = { prompt_style.generate_ps1(), "    " }
 
 ## Customization
 
+By default, It uses the base name of current working directory as your project
+name. You can call `(require "prompt-style").wakatime("wakatime-cli XXX")` to
+customize it.
+
 See
 [![readthedocs](https://shields.io/readthedocs/prompt-stylelua)](https://prompt-stylelua.readthedocs.io).
 
