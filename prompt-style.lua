@@ -20,7 +20,7 @@ local function wakatime(cmd)
             string.match(lfs.currentdir(), "[^/]+$")
         )
     end
-    os.execute(cmd)
+    io.popen(cmd)
     return ""
 end
 
