@@ -38,7 +38,8 @@ jobs:
       - name: Upload
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          luarocks install luajson
+          # https://github.com/luarocks/luarocks/issues/559
+          luarocks install dkjson
           luarocks upload ./*.rockspec --api-key ${{secrets.LUAROCKS_API_KEY}}
 
   deploy-aur:
