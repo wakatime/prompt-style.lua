@@ -18,8 +18,9 @@ local function wakatime(cmd)
     if s ~= nil then
         local project = io.popen("git rev-parse --show-toplevel 2> /dev/null"):read()
         if project == nil then
-            project = string.match(lfs.currentdir(), "[^/]+$")
+            project = lfs.currentdir()
         end
+        project = string.match(project, "[^/]+$")
         cmd = string.format(cmd, project)
     end
     io.popen(cmd)
