@@ -12,8 +12,8 @@ if table.unpack == nil then table.unpack = unpack end
 ---@param cmd string
 ---@return string
 local function wakatime(cmd)
-    cmd = cmd or "wakatime-cli --write --plugin=repl-lua-wakatime \
---entity-type=app entity=lua --alternate-language=lua --project=%s"
+    cmd = cmd or "wakatime-cli --write --plugin=repl-lua-wakatime " ..
+        "--entity-type=app --entity=lua --alternate-language=lua --project=%s"
     local s, _ = string.find(cmd, "%s")
     if s ~= nil then
         cmd = string.format(cmd,
@@ -110,11 +110,11 @@ end
 local function generate_ps1(char, sections)
     char = char or "❯ "
     sections = sections or {
-        ---@diagnostic disable: missing-parameter
-        { "",      "",       wakatime },
-        { "black", "yellow", get_icon() }, { "blue", "black", get_version() },
-        { "white", "blue", get_cwd }, { "black", "white", get_time }
-    }
+            ---@diagnostic disable: missing-parameter
+            { "",      "",       wakatime },
+            { "black", "yellow", get_icon() }, { "blue", "black", get_version() },
+            { "white", "blue", get_cwd }, { "black", "white", get_time }
+        }
     local sep = ""
     local format = " %s "
     return function()
