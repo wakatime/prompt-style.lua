@@ -13,7 +13,7 @@ if table.unpack == nil then table.unpack = unpack end
 ---@return string
 local function wakatime(cmd)
     cmd = cmd or "wakatime-cli --write --plugin=repl-lua-wakatime " ..
-        "--entity-type=app --entity=lua --alternate-language=lua --project=%s"
+        "--entity-type=app --entity=lua --alternate-language=lua --project=%s &"
     local s, _ = string.find(cmd, "%s")
     if s ~= nil then
         local project = io.popen("git rev-parse --show-toplevel 2> /dev/null"):read()
