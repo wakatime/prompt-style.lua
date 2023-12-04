@@ -67,8 +67,9 @@ prompt.prompts = { prompt_style.generate_ps1(), "    " }
 
 ## Customization
 
-By default, It uses the base name of current working directory as your project
-name. You can call `(require "prompt-style").wakatime("wakatime-cli XXX")` to
+If there is a git repository, the project name can be achieved by git. Else use
+the base name of current working directory.
+You can call `(require "prompt-style").wakatime("wakatime-cli XXX")` to
 customize it.
 
 See

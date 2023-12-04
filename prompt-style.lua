@@ -16,9 +16,11 @@ local function wakatime(cmd)
         "--entity-type=app --entity=lua --alternate-language=lua --project=%s"
     local s, _ = string.find(cmd, "%s")
     if s ~= nil then
-        cmd = string.format(cmd,
-            string.match(lfs.currentdir(), "[^/]+$")
-        )
+        local project = io.popen("git rev-parse --show-toplevel 2> /dev/null"):read()
+        if project == nil then
+            project = string.match(lfs.currentdir(), "[^/]+$")
+        end
+        cmd = string.format(cmd, project)
     end
     io.popen(cmd)
     return ""
@@ -27,7 +29,7 @@ end
 ---get distribution
 ---@return string
 local function get_distribution()
-    local line = io.popen("lsb_release -i 2>/dev/null", "r"):read()
+    local line = io.popen("lsb_release -i 2>/dev/null"):read()
     if line == nil then return "linux" end
     return string.lower(string.gsub(line, ".*:%s*", ""))
 end
