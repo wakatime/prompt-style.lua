@@ -36,9 +36,12 @@
 This project provides:
 
 - A prompt with [powerlevel10k](https://github.com/romkatv/powerlevel10k) style.
-- A wakatime plugin to statistic how much time you write lua in REPL.
 
 ![luap](https://user-images.githubusercontent.com/32936898/255322845-c4c6e13c-3b39-4315-b09b-206a1a7783ea.png)
+
+- A wakatime plugin to statistic how much time you write lua in REPL.
+
+![wakatime](https://github.com/wakatime/prompt-style.lua/assets/32936898/b4397806-0ab3-4751-baaa-d9dfed92ace7)
 
 Besides lua's REPL, there are many programs written in lua which provide their
 REPLs. This project provides some wrapper scripts to use this plugin for them:
