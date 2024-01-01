@@ -24,7 +24,7 @@ jobs:
           luarocks pack ./*.rockspec
           luarocks build
           luarocks pack prompt-style
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: "! startsWith(github.ref, 'refs/tags/')"
         with:
           path: |
