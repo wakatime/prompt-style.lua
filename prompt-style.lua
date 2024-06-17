@@ -1,6 +1,5 @@
 ---prompt style.
 local os = require "os"
-local string = require "string"
 local table = require "table"
 local lfs = require "lfs"
 local ansicolors = require "ansicolors"
@@ -14,14 +13,14 @@ if table.unpack == nil then table.unpack = unpack end
 local function wakatime(cmd)
     cmd = cmd or "wakatime-cli --write --plugin=repl-lua-wakatime " ..
         "--entity-type=app --entity=lua --alternate-language=lua --project=%s &"
-    local s, _ = string.find(cmd, "%s")
+    local s, _ = cmd:find("%s")
     if s ~= nil then
         local project = io.popen("git rev-parse --show-toplevel 2> /dev/null"):read()
         if project == nil then
             project = lfs.currentdir()
         end
-        project = string.match(project, "[^/]+$")
-        cmd = string.format(cmd, project)
+        project = project:match("[^/]+$")
+        cmd = cmd:format(project)
     end
     io.popen(cmd)
     return ""
@@ -32,7 +31,7 @@ end
 local function get_distribution()
     local line = io.popen("lsb_release -i 2>/dev/null"):read()
     if line == nil then return "linux" end
-    return string.lower(string.gsub(line, ".*:%s*", ""))
+    return line:gsub(".*:%s*", ""):lower()
 end
 
 ---get os
@@ -41,7 +40,7 @@ local function get_os()
     if os.getenv("PREFIX") == "/data/data/com.termux/files/usr" then
         return "android"
     end
-    local binary_format = string.match(package.cpath, '([^.]+)[;|$]')
+    local binary_format = package.cpath:match('([^.]+)[;|$]')
     if binary_format == "so" then
         return get_distribution()
     elseif binary_format == "dll" then
@@ -81,8 +80,8 @@ local function get_version(name, logo, format)
     name = name or prompt.name
     logo = logo or ""
     format = format or " %s "
-    name = string.format(format, name)
-    local version = string.gsub(_VERSION, ".*%s+", "")
+    name = format:format(name)
+    local version = _VERSION:gsub(".*%s+", "")
     return logo .. name .. version
 end
 
@@ -99,8 +98,8 @@ end
 ---get cwd
 ---@return string
 local function get_cwd()
-    local cwd = string.gsub(lfs.currentdir(), os.getenv("HOME") or "", "~")
-    cwd = string.gsub(cwd, "[^/]+$", "%%{bright}%0")
+    local cwd = lfs.currentdir():gsub(os.getenv("HOME") or "", "~")
+    cwd = cwd:gsub("[^/]+$", "%%{bright}%0")
     return cwd
 end
 
@@ -125,7 +124,7 @@ local function generate_ps1(char, sections)
         local last_bg = ""
         for _, v in ipairs(sections) do
             if type(v) == "string" then
-                if string.match(v, "%s") then
+                if v:match("%s") then
                     format = v
                 else
                     sep = v
@@ -134,7 +133,7 @@ local function generate_ps1(char, sections)
                 local fg, bg, text = table.unpack(v)
                 if type(text) == "function" then text = text() end
                 if text ~= "" then
-                    text = string.format(format, text)
+                    text = format:format(text)
                     if last_bg == "" then
                         ps1 = ps1 .. "%{" .. fg .. " " .. bg .. "bg}" .. text
                     else

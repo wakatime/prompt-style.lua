@@ -25,6 +25,7 @@ build = {
     type = "builtin",
     modules = {["prompt-style"] = "prompt-style.lua"},
     install = {
+        -- cannot use _VERSION
         bin = {
             "bin/nvimp",
             "bin/texluap",
