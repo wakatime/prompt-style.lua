@@ -16,31 +16,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: leafo/gh-actions-lua@v10
-      - uses: leafo/gh-actions-luarocks@v4
-      - name: Build
-        run: |
-          luarocks pack ./*.rockspec
-          luarocks build
-          luarocks pack prompt-style
-      - uses: actions/upload-artifact@v3
-        if: "! startsWith(github.ref, 'refs/tags/')"
+      - uses: actions/checkout@v4
+      - uses: nvim-neorocks/luarocks-tag-release@v5
+        env:
+          LUAROCKS_API_KEY: ${{secrets.LUAROCKS_API_KEY}}
         with:
-          path: |
-            *.rock
-      - uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          # body_path: build/CHANGELOG.md
-          files: |
-            *.rock
-      - name: Upload
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          # https://github.com/luarocks/luarocks/issues/559
-          luarocks install dkjson
-          luarocks upload ./*.rockspec --api-key ${{secrets.LUAROCKS_API_KEY}}
+          template: template.rockspec
+          name: prompt-style
 
   deploy-aur:
     needs: build
