@@ -30,7 +30,7 @@
 [![github/repo-size](https://shields.io/github/repo-size/wakatime/prompt-style.lua)](https://github.com/wakatime/prompt-style.lua)
 [![github/v](https://shields.io/github/v/release/wakatime/prompt-style.lua)](https://github.com/wakatime/prompt-style.lua)
 
-[![luarocks](https://img.shields.io/luarocks/v/wakatime/prompt-style)](https://luarocks.org/modules/wakatime/prompt-style)
+[![luarocks](https://img.shields.io/luarocks/v/Freed-Wu/prompt-style)](https://luarocks.org/modules/Freed-Wu/prompt-style)
 
 [luaprompt](https://github.com/dpapavas/luaprompt) is a good REPL of lua.
 This project provides:
