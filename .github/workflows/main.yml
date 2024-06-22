@@ -18,6 +18,8 @@ jobs:
           LUAROCKS_API_KEY: ${{secrets.LUAROCKS_API_KEY}}
         if: "! startsWith(github.ref, 'refs/tags/')"
         with:
+          extra_luarocks_args: |
+            --force
           template: template.rockspec
           name: prompt-style
           version: scm
@@ -26,6 +28,8 @@ jobs:
           LUAROCKS_API_KEY: ${{secrets.LUAROCKS_API_KEY}}
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          extra_luarocks_args: |
+            --force
           template: template.rockspec
           name: prompt-style
 
