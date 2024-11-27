@@ -1,4 +1,4 @@
-#!/usr/bin/env -S nvim --headless -l
+#!/usr/bin/env -S nvim --headless --cmd "let g:repl = 'nvimp'" -l
 local string = require "string"
 local package = require "package"
 local version = string.gsub(_VERSION, ".* ", "")
