@@ -53,6 +53,24 @@ REPLs. This project provides some wrapper scripts to use this plugin for them:
 
 ![nvimp](https://github.com/wakatime/prompt-style.lua/assets/32936898/8d0b4863-15c6-4966-b8af-219c9c40c1ae)
 
+Tips: you can skip loading unnecessary plugins in your vimrc by:
+
+```vim
+let s:l_flag = 0
+for arg in v:argv
+  if s:l_flag == 1
+    let g:script_name = fnamemodify(arg, ':t')
+    break
+  endif
+  if arg ==# '-l'
+    let s:l_flag = 1
+  endif
+endfor
+if get(g:, 'script_name', '') ==# 'nvimp'
+  finish
+endif
+```
+
 ![texluap](https://github.com/wakatime/prompt-style.lua/assets/32936898/96d9f4c1-55fc-4ae3-87b8-7afd29f4ba0e)
 
 ![pandocp](https://github.com/wakatime/prompt-style.lua/assets/32936898/b556effe-6be7-4cf9-b612-b1283d6de721)
