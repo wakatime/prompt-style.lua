@@ -43,6 +43,7 @@ build = {
       bin = {
           "bin/nvimp",
           "bin/texluap",
+          "bin/texluajitp",
           "bin/pandocp",
           "bin/neomuttp"
       },
