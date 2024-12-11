@@ -60,7 +60,7 @@ customize it.
 See
 [![readthedocs](https://shields.io/readthedocs/prompt-stylelua)](https://prompt-stylelua.readthedocs.io).
 
-## REPLs for many programs contains a lua interpreters
+## REPLs for many programs containing a lua interpreters
 
 ### Lua 5.1/LuaJIT
 

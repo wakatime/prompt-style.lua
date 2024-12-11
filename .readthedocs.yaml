@@ -9,10 +9,6 @@ build:
   apt_packages:
     - lua-ldoc
     - lua-discount
-
-formats:
-  - htmlzip
-
-python:
-  install:
-    - requirements: docs/requirements.txt
+  commands:
+    - ldoc .
+    - mv doc $READTHEDOCS_OUTPUT/html
