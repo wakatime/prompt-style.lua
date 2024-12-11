@@ -225,4 +225,5 @@ function M.source_configs(configs)
     end
 end
 
+---@export
 return M

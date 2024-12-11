@@ -6,7 +6,11 @@ mkShell {
   buildInputs = [
     (luajit.withPackages (
       p: with p; [
+        ansicolors
+        luafilesystem
         luaprompt
+
+        busted
         ldoc
       ]
     ))

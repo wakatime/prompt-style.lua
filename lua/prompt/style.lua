@@ -8,11 +8,11 @@ local prompt = require "prompt"
 if table.unpack == nil then table.unpack = unpack end
 
 ---wakatime
----@param cmd string
+---@param cmd string | nil
 ---@return string
 local function wakatime(cmd)
-    cmd = cmd or "wakatime-cli --write --plugin=repl-lua-wakatime " ..
-        "--entity-type=app --entity=lua --alternate-language=lua --project=%s &"
+    cmd = cmd or ("wakatime-cli --write --plugin=repl-lua-wakatime " ..
+        "--entity-type=app --entity=lua --alternate-language=lua --project=%s &")
     local s, _ = cmd:find("%s")
     if s ~= nil then
         local project = io.popen("git rev-parse --show-toplevel 2> /dev/null"):read()
@@ -72,9 +72,9 @@ local function get_icon()
 end
 
 ---get version
----@param name string
----@param logo string
----@param format string
+---@param name string | nil
+---@param logo string | nil
+---@param format string | nil
 ---@return string
 local function get_version(name, logo, format)
     name = name or prompt.name
@@ -86,7 +86,7 @@ local function get_version(name, logo, format)
 end
 
 ---get time
----@param format string
+---@param format string | nil
 ---@return string
 local function get_time(format)
     format = format or "%H:%M:%S"
@@ -106,17 +106,17 @@ end
 ---generate ps1.
 -- `sections` is an array whose element is like `{ "white", "blue",   get_cwd }`
 -- and its order determine the order of prompt sections.
----@param char string
+---@param char string | nil
 ---@param sections {(1: integer, 2: integar, 3: string | function(): string) | string}[]
 ---@return function(): string
 local function generate_ps1(char, sections)
     char = char or "❯ "
     sections = sections or {
-            ---@diagnostic disable: missing-parameter
-            { "",      "",       wakatime },
-            { "black", "yellow", get_icon() }, { "blue", "black", get_version() },
-            { "white", "blue", get_cwd }, { "black", "white", get_time }
-        }
+        ---@diagnostic disable: missing-parameter
+        { "",      "",       wakatime },
+        { "black", "yellow", get_icon() }, { "blue", "black", get_version() },
+        { "white", "blue", get_cwd }, { "black", "white", get_time }
+    }
     local sep = ""
     local format = " %s "
     return function()
