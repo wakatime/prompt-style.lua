@@ -125,7 +125,20 @@ luarocks install prompt-style
 
 ## Related Projects
 
+### Use neovim as lua interpreter
+
 - [neolua](https://github.com/nvim-neorocks/neorocks): Another lua interpreter
   based on neovim like `nvimp`. It doesn't provide a REPL like lua.
 - [nlua](https://github.com/mfussenegger/nlua): Another lua interpreter
   based on neovim like `nvimp`. It doesn't provide a REPL like lua.
+
+### Other luas
+
+- [wezterm](https://github.com/wez/wezterm):
+  - `wezterm --config-file /the/path/weztermp`
+  - doesn't support shebang
+  - can't load C modules in safe mode
+- [xmake](https://github.com/xmake-io/xmake):
+  - `xmake l /the/path/xmake.lua`
+  - doesn't support shebang
+  - xmake doesn't provide `require()`
