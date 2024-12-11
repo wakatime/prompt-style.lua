@@ -32,69 +32,82 @@
 
 [![luarocks](https://img.shields.io/luarocks/v/Freed-Wu/prompt-style)](https://luarocks.org/modules/Freed-Wu/prompt-style)
 
-[luaprompt](https://github.com/dpapavas/luaprompt) is a good REPL of lua.
-This project provides:
+This project provides some tools related to
+[luaprompt](https://github.com/dpapavas/luaprompt):
 
-- A prompt with [powerlevel10k](https://github.com/romkatv/powerlevel10k) style.
+## A prompt with [powerlevel10k](https://github.com/romkatv/powerlevel10k) style
 
 ![luap](https://user-images.githubusercontent.com/32936898/255322845-c4c6e13c-3b39-4315-b09b-206a1a7783ea.png)
-
-- A wakatime plugin to statistic how much time you write lua in REPL.
-
-![wakatime](https://github.com/wakatime/prompt-style.lua/assets/32936898/b4397806-0ab3-4751-baaa-d9dfed92ace7)
-
-Besides lua's REPL, there are many programs written in lua which provide their
-REPLs. This project provides some wrapper scripts to use this plugin for them:
-
-- [neovim](https://neovim.io)
-- [luatex](https://www.luatex.org)
-- [pandoc](https://pandoc.org)
-- [neomutt](https://neomutt.org)
-
-![nvimp](https://github.com/wakatime/prompt-style.lua/assets/32936898/8d0b4863-15c6-4966-b8af-219c9c40c1ae)
-
-Tips: you can skip loading unnecessary plugins in your vimrc by:
-
-```vim
-let s:l_flag = 0
-for arg in v:argv
-  if s:l_flag == 1
-    let g:script_name = fnamemodify(arg, ':t')
-    break
-  endif
-  if arg ==# '-l'
-    let s:l_flag = 1
-  endif
-endfor
-if get(g:, 'script_name', '') ==# 'nvimp'
-  finish
-endif
-```
-
-![texluap](https://github.com/wakatime/prompt-style.lua/assets/32936898/96d9f4c1-55fc-4ae3-87b8-7afd29f4ba0e)
-
-![pandocp](https://github.com/wakatime/prompt-style.lua/assets/32936898/b556effe-6be7-4cf9-b612-b1283d6de721)
-
-## Usage
 
 `~/.config/luaprc.lua`:
 
 ```lua
 local prompt = require "prompt"
-local prompt_style = require "prompt-style"
+local style = require "prompt.style"
 
-prompt.prompts = { prompt_style.generate_ps1(), "    " }
+prompt.prompts = { style.generate_ps1(), "    " }
 ```
 
-## Customization
+## A wakatime plugin to statistic how much time you write lua in REPL
+
+![wakatime](https://github.com/wakatime/prompt-style.lua/assets/32936898/b4397806-0ab3-4751-baaa-d9dfed92ace7)
 
 If there is a git repository, the project name can be achieved by git. Else use
 the base name of current working directory.
-You can call `(require "prompt-style").wakatime("wakatime-cli XXX")` to
+You can call `(require "prompt.style").wakatime("wakatime-cli XXX")` to
 customize it.
 
 See
 [![readthedocs](https://shields.io/readthedocs/prompt-stylelua)](https://prompt-stylelua.readthedocs.io).
+
+## REPLs for many programs contains a lua interpreters
+
+### Lua 5.1/LuaJIT
+
+#### [neovim](https://neovim.io)
+
+![cmd](https://github.com/user-attachments/assets/26a34d2e-7db9-412c-beb3-87b8598294f9)
+
+`~/.config/nvim/init.lua`:
+
+```lua
+local l_flag = false
+for _, arg in ipairs(vim.v.argv) do
+    if l_flag == true then
+        vim.g.script_name = vim.fs.basename(arg)
+        break
+    end
+    if arg == "-l" then
+        l_flag = true
+    end
+end
+if vim.g.script_name == "nvimp" then
+    require"prompt".name = "nvim"
+    loadfile(vim.fs.joinpath(os.getenv("HOME"), ".config", "luaprc.lua"))()
+    -- skip loading unnecessary vim plugins
+    return
+end
+```
+
+#### luajittex
+
+Refer [luatex](#luatex).
+
+### Lua 5.3
+
+#### luatex
+
+![texluap](https://github.com/wakatime/prompt-style.lua/assets/32936898/96d9f4c1-55fc-4ae3-87b8-7afd29f4ba0e)
+
+#### [neomutt](https://neomutt.org)
+
+Broken in [upstream](https://github.com/neomutt/neomutt/issues/4328)
+
+### Lua 5.4
+
+#### [pandoc](https://pandoc.org)
+
+![pandocp](https://github.com/wakatime/prompt-style.lua/assets/32936898/b556effe-6be7-4cf9-b612-b1283d6de721)
 
 ## Install
 
@@ -103,8 +116,6 @@ See
 ```sh
 paru -S lua{,51,52,53}-prompt-style
 ```
-
-**NOTE**: REPLs use some specific version of lua.
 
 ### [Luarocks](https://luarocks.org/modules/Freed-Wu/prompt-style)
 
@@ -115,4 +126,6 @@ luarocks install prompt-style
 ## Related Projects
 
 - [neolua](https://github.com/nvim-neorocks/neorocks): Another lua interpreter
+  based on neovim like `nvimp`. It doesn't provide a REPL like lua.
+- [nlua](https://github.com/mfussenegger/nlua): Another lua interpreter
   based on neovim like `nvimp`. It doesn't provide a REPL like lua.

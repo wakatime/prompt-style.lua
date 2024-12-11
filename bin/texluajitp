@@ -1,37 +1,8 @@
 #!/usr/bin/env -S luajittex --luaonly
-local string = require "string"
-local package = require "package"
-local version = string.gsub(_VERSION, ".* ", "")
-local path = package.path
-local cpath = package.cpath
-package.path = package.path .. ";/usr/share/lua/" .. version .. "/?.lua;/usr/share/lua/" .. version .. "/?/init.lua"
-local ext = string.match(package.cpath, '([^.]+)[;|$]')
-package.cpath = package.cpath .. ";/usr/lib/lua/" .. version .. "/?." .. ext
+local utils = require "prompt.utils"
 
-local prompt = require "prompt"
-prompt.name = 'texlua'
-prompt.prompts = { '>  ', '>> ' }
-prompt.colorize = true
-prompt.history = os.getenv('HOME') .. '/.lua_history'
-
-for _, name in ipairs { os.getenv('HOME') .. '/.luaprc.lua',
-    os.getenv('HOME') .. '/.config/luaprc.lua' } do
-    local f = io.open(name, "r")
-    if f ~= nil then
-        io.close(f)
-
-        chunk, message = loadfile(name)
-
-        if chunk then
-            chunk()
-        else
-            print(message)
-        end
-
-        break
-    end
-end
-
-package.path = path
-package.cpath = cpath
-prompt.enter()
+utils.init()
+utils.source_configs()
+local args = utils.get_parser():parse(arg)
+utils.process_args(args, parser)
+-- ex: filetype=lua
