@@ -3,4 +3,5 @@
 ---@diagnostic disable: lowercase-global
 project = "prompt-style"
 readme = "README.md"
-format = "discount"
+format = "cmark"
+dir = "_readthedocs/html"

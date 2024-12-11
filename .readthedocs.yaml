@@ -10,4 +10,3 @@ build:
     - pip install hererocks
     - hererocks ~/lua -l5.1 -rlatest
     - scripts/ldoc.sh
-    - mv doc $READTHEDOCS_OUTPUT/html
