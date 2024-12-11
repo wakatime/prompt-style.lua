@@ -200,7 +200,7 @@ end
 
 ---init prompt
 function M.init()
-    if arg[0] and prompt.name == "lua" then
+    if arg and arg[0] and prompt.name == "lua" then
         prompt.name = arg[0]:gsub(".*/", ""):gsub("p$", "")
     end
     prompt.prompts = prompt.prompts or { '>  ', '>> ' }
