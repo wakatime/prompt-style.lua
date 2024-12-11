@@ -7,6 +7,7 @@ mkShell {
     (luajit.withPackages (
       p: with p; [
         ansicolors
+        argparse
         luafilesystem
         luaprompt
 
