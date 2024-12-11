@@ -7,9 +7,14 @@ local M = {}
 ---@return table
 function M.get_parser()
     -- Define the command-line argument parser.
-
+    local name
+    if arg and arg[0] then
+        name = arg[0]:gsub(".*/", "")
+    else
+        name = prompt.name .. "p"
+    end
     local parser = argparse()
-        :name(arg[0]:gsub(".*/", ""))
+        :name(name)
         :description "A Lua command prompt with pretty-printing and auto-completion."
         :add_help "-h"
         :add_complete({ hidden = true })
