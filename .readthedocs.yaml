@@ -9,7 +9,7 @@ build:
   commands:
     - pip install hererocks
     - hererocks lua51 -l5.1 -rlatest
-    - source lua51/bin/activate
+    - . lua51/bin/activate
     - luarocks install ldoc lua-discount
     - ldoc .
     - mv doc $READTHEDOCS_OUTPUT/html
