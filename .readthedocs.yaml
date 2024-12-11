@@ -7,6 +7,9 @@ build:
   tools:
     python: "3"
   commands:
+    - pip install --user hererocks
+    - hererocks lua51 -l5.1 -rlatest
+    - source lua51/bin/activate
     - luarocks install --local ldoc lua-discount
     - ldoc .
     - mv doc $READTHEDOCS_OUTPUT/html
