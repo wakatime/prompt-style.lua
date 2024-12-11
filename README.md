@@ -1,6 +1,6 @@
 # prompt-style.lua
 
-[![readthedocs](https://shields.io/readthedocs/prompt-stylelua)](https://prompt-stylelua.readthedocs.io)
+[![readthedocs](https://shields.io/readthedocs/prompt-style-lua)](https://prompt-style-lua.readthedocs.io)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/wakatime/prompt-style.lua/main.svg)](https://results.pre-commit.ci/latest/github/wakatime/prompt-style.lua/main)
 [![github/workflow](https://github.com/wakatime/prompt-style.lua/actions/workflows/main.yml/badge.svg)](https://github.com/wakatime/prompt-style.lua/actions)
 [![codecov](https://codecov.io/gh/wakatime/prompt-style.lua/branch/main/graph/badge.svg)](https://codecov.io/gh/wakatime/prompt-style.lua)
