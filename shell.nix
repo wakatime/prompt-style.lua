@@ -8,7 +8,6 @@ mkShell {
       p: with p; [
         luaprompt
         ldoc
-        discount
       ]
     ))
   ];
