@@ -44,6 +44,10 @@ repos:
     rev: 3.0.0
     hooks:
       - id: check-mailmap
+      # https://github.com/koalaman/shellcheck/issues/2909
+      - id: shellcheck
+        exclude_types:
+          - zsh
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.4
     hooks:
@@ -67,12 +71,20 @@ repos:
           - mdformat-config
           - mdformat-web
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.15.0
+    rev: v0.16.0
     hooks:
       - id: markdownlint-cli2
         additional_dependencies:
           - markdown-it-texmath
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.10.0-2
+    hooks:
+      - id: shfmt
   - repo: https://github.com/lunarmodules/luacheck
     rev: v1.2.0
     hooks:
       - id: luacheck
+
+ci:
+  skip:
+    - shellcheck
