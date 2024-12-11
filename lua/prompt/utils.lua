@@ -1,7 +1,10 @@
+---prompt utils.
 local argparse = require "argparse"
 local prompt = require "prompt"
 local M = {}
 
+---get a parser with same command line options as lua
+---@return table
 function M.get_parser()
     -- Define the command-line argument parser.
 
