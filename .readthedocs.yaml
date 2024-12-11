@@ -7,7 +7,7 @@ build:
   tools:
     python: "3"
   commands:
-    - sudo apt-get -y update
-    - sudo apt-get -y install lua-ldoc lua-discount
+    - apt-get -y update
+    - apt-get -y install lua-ldoc lua-discount
     - ldoc .
     - mv doc $READTHEDOCS_OUTPUT/html
