@@ -29,9 +29,85 @@ end
 ---get distribution
 ---@return string
 local function get_distribution()
-    local line = io.popen("lsb_release -i 2>/dev/null"):read()
-    if line == nil then return "linux" end
-    return line:gsub(".*:%s*", ""):lower()
+    local f = io.open("/etc/artix-release")
+    if f then
+        f:close()
+        return "artix"
+    end
+    f = io.open("/etc/os-release")
+    if f == nil then
+        f = io.open("/usr/lib/os-release")
+    end
+    if f then
+        local result
+        for line in f:lines() do
+            if line:match("^ID=") then
+                result = line:gsub("^ID=", "")
+                break
+            end
+        end
+        f:close()
+        if result:match("arch") then
+          return "arch"
+        elseif result:match("debian") then
+          return "debian"
+        elseif result:match("raspbian") then
+          return "raspbian"
+        elseif result:match("ubuntu") then
+          return "ubuntu"
+        elseif result:match("elementary") then
+          return "elementary"
+        elseif result:match("fedora") then
+          return "fedora"
+        elseif result:match("coreos") then
+          return "coreos"
+        elseif result:match("kali") then
+          return "kali"
+        elseif result:match("gentoo") then
+          return "gentoo"
+        elseif result:match("mageia") then
+          return "mageia"
+        elseif result:match("centos") then
+          return "centos"
+        elseif result:match("opensuse") then
+          return "opensuse"
+        elseif result:match("tumbleweed") then
+          return "opensuse"
+        elseif result:match("sabayon") then
+          return "sabayon"
+        elseif result:match("slackware") then
+          return "slackware"
+        elseif result:match("linuxmint") then
+          return "mint"
+        elseif result:match("alpine") then
+          return "alpine"
+        elseif result:match("aosc") then
+          return "aosc"
+        elseif result:match("nixos") then
+          return "nixos"
+        elseif result:match("devuan") then
+          return "devuan"
+        elseif result:match("manjaro") then
+          return "manjaro"
+        elseif result:match("void") then
+          return "void"
+        elseif result:match("artix") then
+          return "artix"
+        elseif result:match("rhel") then
+          return "rhel"
+        elseif result:match("amzn") then
+          return "amzn"
+        elseif result:match("endeavouros") then
+          return "endeavouros"
+        elseif result:match("rocky") then
+          return "rocky"
+        elseif result:match("guix") then
+          return "guix"
+        elseif result:match("dock") then
+          return "docker"
+        end
+    end
+    return "linux"
 end
 
 ---get os
@@ -40,7 +116,7 @@ local function get_os()
     if os.getenv("PREFIX") == "/data/data/com.termux/files/usr" then
         return "android"
     end
-    local binary_format = package.cpath:match('([^.]+)[;|$]')
+    local binary_format = package.cpath:match('([^.]+)$')
     if binary_format == "so" then
         return get_distribution()
     elseif binary_format == "dll" then
@@ -56,17 +132,40 @@ end
 local function get_icon()
     local icons = {
         unknown = "?",
-        android = "",
+        alpine = "",
+        amzn = "",
+        android = "",
+        aosc = "",
         arch = "",
+        artix = "",
         centos = "",
+        coreos = "",
         debian = "",
+        devuan = "",
         docker = "",
+        elementary = "",
+        endeavouros = "",
+        fedora = "",
+        freebsd = "",
         gentoo = "",
-        linux = "",
-        macos = "",
-        ubuntu = "",
+        guix = "",
+        kali = "",
+        linux = "",
+        macos = "",
+        mageia = "",
+        manjaro = "",
+        mint = "",
         nixos = "",
-        windows = ""
+        opensuse = "",
+        raspbian = "",
+        rhel = "",
+        rocky = "",
+        sabayon = "",
+        slackware = "",
+        sunos = "",
+        ubuntu = "",
+        void = "",
+        windows = "",
     }
     return icons[get_os()]
 end
