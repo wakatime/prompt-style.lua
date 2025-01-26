@@ -173,3 +173,6 @@ luarocks install prompt-style
   - `xmake l /the/path/xmake.lua`
   - doesn't support shebang
   - xmake doesn't provide `require()`
+- luatex's `\directlua{}`:
+  - weird. Even if `kpse.lookup('prompt.so')` return correct path,
+    `require'prompt'` still throw `module 'prompt' not found`.
