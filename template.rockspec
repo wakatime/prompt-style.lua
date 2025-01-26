@@ -45,6 +45,8 @@ build = {
           "bin/nvimp",
           "bin/texluap",
           "bin/texluajitp",
+          "bin/hbtexluap",
+          "bin/hbtexluajitp",
           "bin/pandocp",
           "bin/neomuttp"
       },

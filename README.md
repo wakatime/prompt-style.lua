@@ -123,11 +123,11 @@ Assume this project is installed to `~/.local/share/lua/5.1`.
 
 ```sh
 # for -progname=luajitex
-export LUAINPUTS_luajittex="$HOME/.local/share/lua/5.1"
-export CLUAINPUTS_luajittex="$HOME/.local/lib/lua/5.1"
+export LUAINPUTS_luajittex='$TEXMFDOTDIR;'"$HOME/.local/share/lua/5.1"';$TEXMF/tex/{luatex,plain,generic,latex}//'
+export CLUAINPUTS_luajittex='$TEXMFDOTDIR;'"$HOME/.local/lib/lua/5.1"
 # for any -progname=
-export LUAINPUTS="$HOME/.local/share/lua/5.3"
-export CLUAINPUTS="$HOME/.local/lib/lua/5.3"
+export LUAINPUTS="$LUAINPUTS_luajittex"
+export CLUAINPUTS="$CLUAINPUTS_luajittex"
 ```
 
 Check your changes:
@@ -145,7 +145,7 @@ If you want to use lua REPL in `\directlua{}`, you can insert:
 \directlua{require'prompt.tex'}
 ```
 
-As [example](examples/main.tex):
+As [example](examples/):
 
 ```sh
 luajittex --shell-escape main.tex
