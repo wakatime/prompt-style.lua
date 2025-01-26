@@ -99,6 +99,37 @@ Refer [luatex](#luatex).
 
 ![texluap](https://github.com/wakatime/prompt-style.lua/assets/32936898/96d9f4c1-55fc-4ae3-87b8-7afd29f4ba0e)
 
+luatex use `kpse` to search lua modules and binary lua modules.
+
+```sh
+kpsewhich -progname=luatex -var-value=LUAINPUTS
+kpsewhich -progname=luatex -var-value=CLUAINPUTS
+kpsewhich -progname=luajittex -var-value=LUAINPUTS
+kpsewhich -progname=luajittex -var-value=CLUAINPUTS
+```
+
+You can edit web2c config to modify its default values. Such as, default config
+is:
+
+`/usr/share/texmf-dist/web2c/texmf.cnf`:
+
+```texmf
+LUAINPUTS = $TEXMFDOTDIR;$TEXMF/scripts/{$progname,$engine,}/{lua,}//;$TEXMF/tex/{luatex,plain,generic,latex,}//
+CLUAINPUTS = $TEXMFDOTDIR;$SELFAUTOLOC/lib/{$progname,$engine,}/lua//
+```
+
+Add your changes to `/usr/share/texmf.cnf`. Or use environment variables.
+Assume this project is installed to `~/.local/share/lua/5.1`.
+
+```sh
+# for -progname=luajitex
+export LUAINPUTS_luajittex="$HOME/.local/share/lua/5.1"
+export CLUAINPUTS_luajittex="$HOME/.local/lib/lua/5.1"
+# for any -progname=
+export LUAINPUTS="$HOME/.local/share/lua/5.3"
+export CLUAINPUTS="$HOME/.local/lib/lua/5.3"
+```
+
 #### [neomutt](https://neomutt.org)
 
 Broken in [upstream](https://github.com/neomutt/neomutt/issues/4328)
