@@ -148,12 +148,12 @@ If you want to use lua REPL in `\directlua{}`, you can insert:
 As [example](examples/main.tex):
 
 ```sh
-luajittex --lua=/the/path/of/prompt/tex.lua main.tex
+luajittex --shell-escape main.tex
 ```
 
 Then you will get:
 
-![directlua](https://github.com/user-attachments/assets/45279ebe-76aa-4ff4-826e-03c00e9e79a8)
+![directlua](https://github.com/user-attachments/assets/6a9943c9-a273-4ca9-b603-8cee17a2218f)
 
 #### [neomutt](https://neomutt.org)
 
