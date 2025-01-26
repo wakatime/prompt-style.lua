@@ -1,6 +1,7 @@
 ---prompt utils.
 local argparse = require "argparse"
 local prompt = require "prompt"
+local style = require "prompt.style"
 local M = {}
 
 ---get a parser with same command line options as lua
@@ -212,7 +213,7 @@ function M.init()
         prompt.name = arg[0]:gsub(".*/", ""):gsub("p$", "")
     end
 
-    prompt.prompts = prompt.prompts or { '>  ', '>> ' }
+    prompt.prompts = { style.generate_ps1(), "    " }
     if prompt.colorize == nil then
         prompt.colorize = true
     end

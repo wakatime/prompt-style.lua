@@ -102,10 +102,10 @@ Refer [luatex](#luatex).
 luatex use `kpse` to search lua modules and binary lua modules.
 
 ```sh
-kpsewhich -progname=luatex -var-value=LUAINPUTS
-kpsewhich -progname=luatex -var-value=CLUAINPUTS
-kpsewhich -progname=luajittex -var-value=LUAINPUTS
-kpsewhich -progname=luajittex -var-value=CLUAINPUTS
+$ kpsewhich -progname=luatex -format=clua prompt
+/run/current-system/sw/lib/lua/5.1/prompt.so
+$ kpsewhich -progname=luatex -format=lua prompt/utils
+/home/wzy/.local/share/lua/5.1/prompt/utils.lua
 ```
 
 You can edit web2c config to modify its default values. Such as, default config
@@ -129,6 +129,31 @@ export CLUAINPUTS_luajittex="$HOME/.local/lib/lua/5.1"
 export LUAINPUTS="$HOME/.local/share/lua/5.3"
 export CLUAINPUTS="$HOME/.local/lib/lua/5.3"
 ```
+
+Check your changes:
+
+```sh
+kpsewhich -progname=luatex -var-value=LUAINPUTS
+kpsewhich -progname=luatex -var-value=CLUAINPUTS
+kpsewhich -progname=luajittex -var-value=LUAINPUTS
+kpsewhich -progname=luajittex -var-value=CLUAINPUTS
+```
+
+If you want to use lua REPL in `\directlua{}`, you can insert:
+
+```tex
+\directlua{require'prompt.tex'}
+```
+
+As [example](examples/main.tex):
+
+```sh
+luajittex --lua=/the/path/of/prompt/tex.lua main.tex
+```
+
+Then you will get:
+
+![directlua](https://github.com/user-attachments/assets/45279ebe-76aa-4ff4-826e-03c00e9e79a8)
 
 #### [neomutt](https://neomutt.org)
 
@@ -173,6 +198,3 @@ luarocks install prompt-style
   - `xmake l /the/path/xmake.lua`
   - doesn't support shebang
   - xmake doesn't provide `require()`
-- luatex's `\directlua{}`:
-  - weird. Even if `kpse.lookup('prompt.so')` return correct path,
-    `require'prompt'` still throw `module 'prompt' not found`.

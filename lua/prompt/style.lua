@@ -15,7 +15,13 @@ local function wakatime(cmd)
         "--entity-type=app --entity=lua --alternate-language=lua --project=%s &")
     local s, _ = cmd:find("%s")
     if s ~= nil then
-        local project = io.popen("git rev-parse --show-toplevel 2> /dev/null"):read()
+        local f = io.popen("git rev-parse --show-toplevel 2> /dev/null")
+        -- specific command execution disabled
+        if f == nil then
+            return ""
+        end
+        local project = f:read()
+        f:close()
         if project == nil then
             project = lfs.currentdir()
         end
@@ -48,63 +54,63 @@ local function get_distribution()
         end
         f:close()
         if result:match("arch") then
-          return "arch"
+            return "arch"
         elseif result:match("debian") then
-          return "debian"
+            return "debian"
         elseif result:match("raspbian") then
-          return "raspbian"
+            return "raspbian"
         elseif result:match("ubuntu") then
-          return "ubuntu"
+            return "ubuntu"
         elseif result:match("elementary") then
-          return "elementary"
+            return "elementary"
         elseif result:match("fedora") then
-          return "fedora"
+            return "fedora"
         elseif result:match("coreos") then
-          return "coreos"
+            return "coreos"
         elseif result:match("kali") then
-          return "kali"
+            return "kali"
         elseif result:match("gentoo") then
-          return "gentoo"
+            return "gentoo"
         elseif result:match("mageia") then
-          return "mageia"
+            return "mageia"
         elseif result:match("centos") then
-          return "centos"
+            return "centos"
         elseif result:match("opensuse") then
-          return "opensuse"
+            return "opensuse"
         elseif result:match("tumbleweed") then
-          return "opensuse"
+            return "opensuse"
         elseif result:match("sabayon") then
-          return "sabayon"
+            return "sabayon"
         elseif result:match("slackware") then
-          return "slackware"
+            return "slackware"
         elseif result:match("linuxmint") then
-          return "mint"
+            return "mint"
         elseif result:match("alpine") then
-          return "alpine"
+            return "alpine"
         elseif result:match("aosc") then
-          return "aosc"
+            return "aosc"
         elseif result:match("nixos") then
-          return "nixos"
+            return "nixos"
         elseif result:match("devuan") then
-          return "devuan"
+            return "devuan"
         elseif result:match("manjaro") then
-          return "manjaro"
+            return "manjaro"
         elseif result:match("void") then
-          return "void"
+            return "void"
         elseif result:match("artix") then
-          return "artix"
+            return "artix"
         elseif result:match("rhel") then
-          return "rhel"
+            return "rhel"
         elseif result:match("amzn") then
-          return "amzn"
+            return "amzn"
         elseif result:match("endeavouros") then
-          return "endeavouros"
+            return "endeavouros"
         elseif result:match("rocky") then
-          return "rocky"
+            return "rocky"
         elseif result:match("guix") then
-          return "guix"
+            return "guix"
         elseif result:match("dock") then
-          return "docker"
+            return "docker"
         end
     end
     return "linux"
