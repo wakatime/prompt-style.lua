@@ -200,9 +200,18 @@ end
 
 ---init prompt
 function M.init()
-    if arg and arg[0] and prompt.name == "lua" then
+    -- luacheck: ignore 111 113
+    ---@diagnostic disable: undefined-global
+    if vim then
+        prompt.name = "nvim"
+    elseif pandoc then
+        prompt.name = "pandoc"
+    elseif status then
+        prompt.name = status.list().luatex_engine
+    elseif arg and arg[0] and prompt.name == "lua" then
         prompt.name = arg[0]:gsub(".*/", ""):gsub("p$", "")
     end
+
     prompt.prompts = prompt.prompts or { '>  ', '>> ' }
     if prompt.colorize == nil then
         prompt.colorize = true
