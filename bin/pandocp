@@ -3,6 +3,7 @@ local utils = require "prompt.utils"
 
 utils.init()
 utils.source_configs()
-local args = utils.get_parser():parse(arg)
+local parser = utils.get_parser()
+local args = parser:parse(arg)
 utils.process_args(args, parser)
 -- ex: filetype=lua

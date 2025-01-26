@@ -46,6 +46,7 @@ repos:
       - id: check-mailmap
       # https://github.com/koalaman/shellcheck/issues/2909
       - id: shellcheck
+        exclude: bin/neomuttp
         exclude_types:
           - zsh
   - repo: https://github.com/rhysd/actionlint
@@ -80,6 +81,7 @@ repos:
     rev: v3.10.0-2
     hooks:
       - id: shfmt
+        exclude: bin/neomuttp
   - repo: https://github.com/lunarmodules/luacheck
     rev: v1.2.0
     hooks:

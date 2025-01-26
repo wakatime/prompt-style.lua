@@ -17,7 +17,8 @@ end
 utils.init()
 -- use ~/.config/nvim/init.vim
 -- utils.source_configs()
-local args = utils.get_parser():parse(arg)
+local parser = utils.get_parser()
+local args = parser:parse(arg)
 if args.v then
     vim.cmd.version()
     os.exit(0)
