@@ -3,6 +3,10 @@
 \title{lualatex}
 \begin{document}
 
-\directlua{require'prompt.tex'}
+\directlua{
+  % FIXME: lualatex needs it to search prompt.tex
+  kpse.set_program_name(status.list().luatex_engine)
+  require'prompt.tex'
+}
 
 \end{document}
