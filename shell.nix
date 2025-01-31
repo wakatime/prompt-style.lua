@@ -23,9 +23,9 @@ mkShell rec {
     (luajit.withPackages packages)
   ];
   shellHook = ''
-    export LUAINPUTS_luatex="lua;${builtins.elemAt buildInputs 0}/share/lua/5.3"
+    export LUAINPUTS_luatex="${./.}/lua;${builtins.elemAt buildInputs 0}/share/lua/5.3"
     export CLUAINPUTS_luatex="${builtins.elemAt buildInputs 0}/lib/lua/5.3"
-    export LUAINPUTS_luajittex="lua;${builtins.elemAt buildInputs 1}/share/lua/5.1"
+    export LUAINPUTS_luajittex="${./.}/lua;${builtins.elemAt buildInputs 1}/share/lua/5.1"
     export CLUAINPUTS_luajittex="${builtins.elemAt buildInputs 1}/lib/lua/5.1"
 
     export LUAINPUTS_luahbtex="$LUAINPUTS_luatex"
