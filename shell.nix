@@ -21,6 +21,9 @@ mkShell rec {
   buildInputs = [
     (lua5_3.withPackages packages)
     (luajit.withPackages packages)
+    neovim
+    pandoc
+    texlive.combined.scheme-full
   ];
   shellHook = ''
     export LUAINPUTS_luatex="${./.}/lua;${builtins.elemAt buildInputs 0}/share/lua/5.3"
