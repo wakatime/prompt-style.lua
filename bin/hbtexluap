@@ -1,5 +1,5 @@
 #!/usr/bin/env -S luahbtex --luaonly
-kpse.set_program_name(status.list().luatex_engine)
+kpse.set_program_name("luahbtex")
 local utils = require "prompt.utils"
 
 utils.init()

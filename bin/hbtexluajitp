@@ -1,5 +1,5 @@
 #!/usr/bin/env -S luajithbtex --luaonly
-kpse.set_program_name(status.list().luatex_engine)
+kpse.set_program_name("luajithbtex")
 local utils = require "prompt.utils"
 
 utils.init()
