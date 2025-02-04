@@ -23,7 +23,9 @@ mkShell rec {
     (luajit.withPackages packages)
     neovim
     pandoc
-    texlive.combined.scheme-full
+    (builtins.elemAt texlive.luatex.pkgs 2)
+    (builtins.elemAt texlive.luahbtex.pkgs 2)
+    (builtins.elemAt texlive.luajittex.pkgs 2)
   ];
   shellHook = ''
     export LUAINPUTS_luatex="${./.}/lua;${builtins.elemAt buildInputs 0}/share/lua/5.3"
