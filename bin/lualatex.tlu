@@ -1,0 +1,18 @@
+#!/usr/bin/env -S lualatex \\catcode35=14 \\catcode45=14 \\input
+--[[
+\catcode`\#6
+\catcode`\-12
+\renewcommand\normalsize{\fontsize{10pt}{12pt}\selectfont}
+\begin{document}
+\directlua{require'lualatex'}
+\end{document}
+]]
+kpse.set_program_name("lualatex")
+local utils = require "prompt.utils"
+
+utils.init()
+utils.source_configs()
+local parser = utils.get_parser()
+local args = parser:parse(arg)
+utils.process_args(args, parser)
+-- ex: filetype=lua
