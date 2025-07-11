@@ -99,46 +99,6 @@ Refer [luatex](#luatex).
 
 ![texluap](https://github.com/wakatime/prompt-style.lua/assets/32936898/96d9f4c1-55fc-4ae3-87b8-7afd29f4ba0e)
 
-luatex use `kpse` to search lua modules and binary lua modules.
-
-```sh
-$ kpsewhich -progname=luatex -format=clua prompt
-/run/current-system/sw/lib/lua/5.1/prompt.so
-$ kpsewhich -progname=luatex -format=lua prompt/utils
-/home/wzy/.local/share/lua/5.1/prompt/utils.lua
-```
-
-You can edit web2c config to modify its default values. Such as, default config
-is:
-
-`/usr/share/texmf-dist/web2c/texmf.cnf`:
-
-```texmf
-LUAINPUTS = $TEXMFDOTDIR;$TEXMF/scripts/{$progname,$engine,}/{lua,}//;$TEXMF/tex/{luatex,plain,generic,latex,}//
-CLUAINPUTS = $TEXMFDOTDIR;$SELFAUTOLOC/lib/{$progname,$engine,}/lua//
-```
-
-Add your changes to `/usr/share/texmf.cnf`. Or use environment variables.
-Assume this project is installed to `~/.local/share/lua/5.1`.
-
-```sh
-# for -progname=luajitex
-export LUAINPUTS_luajittex='$TEXMFDOTDIR;'"$HOME/.local/share/lua/5.1"';$TEXMF/tex/{luatex,plain,generic,latex}//'
-export CLUAINPUTS_luajittex='$TEXMFDOTDIR;'"$HOME/.local/lib/lua/5.1"
-# for any -progname=
-export LUAINPUTS="$LUAINPUTS_luajittex"
-export CLUAINPUTS="$CLUAINPUTS_luajittex"
-```
-
-Check your changes:
-
-```sh
-kpsewhich -progname=luatex -var-value=LUAINPUTS
-kpsewhich -progname=luatex -var-value=CLUAINPUTS
-kpsewhich -progname=luajittex -var-value=LUAINPUTS
-kpsewhich -progname=luajittex -var-value=CLUAINPUTS
-```
-
 If you want to use lua REPL in `\directlua{}`, you can insert:
 
 ```tex
