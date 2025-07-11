@@ -7,7 +7,6 @@
 \directlua{require'lualatex'}
 \end{document}
 ]]
-kpse.set_program_name("lualatex")
 local utils = require "prompt.utils"
 
 utils.init()

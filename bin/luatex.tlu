@@ -3,7 +3,6 @@
 \directlua{require'luatex'}
 \bye
 ]]
-kpse.set_program_name("luatex")
 local utils = require "prompt.utils"
 
 utils.init()
