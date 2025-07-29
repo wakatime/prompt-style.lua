@@ -93,7 +93,7 @@ end
 
 #### [luatex](https://www.luatex.org/)
 
-See [tlua](https://luarocks.org/modules/freed-wu/tlua).
+See [texluap](https://luarocks.org/modules/freed-wu/texluap).
 
 #### [neomutt](https://neomutt.org)
 
