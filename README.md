@@ -89,31 +89,11 @@ if vim.g.script_name == "nvimp" then
 end
 ```
 
-#### luajittex
-
-Refer [luatex](#luatex).
-
 ### Lua 5.3
 
-#### luatex
+#### [luatex](https://www.luatex.org/)
 
-![texluap](https://github.com/wakatime/prompt-style.lua/assets/32936898/96d9f4c1-55fc-4ae3-87b8-7afd29f4ba0e)
-
-If you want to use lua REPL in `\directlua{}`, you can insert:
-
-```tex
-\directlua{require'prompt.tex'}
-```
-
-As [example](examples/):
-
-```sh
-luajittex --shell-escape main.tex
-```
-
-Then you will get:
-
-![directlua](https://github.com/user-attachments/assets/6a9943c9-a273-4ca9-b603-8cee17a2218f)
+See [tlua](https://luarocks.org/modules/freed-wu/tlua).
 
 #### [neomutt](https://neomutt.org)
 

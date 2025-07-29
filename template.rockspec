@@ -43,7 +43,6 @@ build = {
       -- cannot use _VERSION
       bin = {
           "bin/nvimp",
-          "bin/texluap",
           "bin/pandocp",
           "bin/neomuttp"
       },

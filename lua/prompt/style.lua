@@ -1,7 +1,13 @@
 ---prompt style.
 local os = require "os"
 local table = require "table"
-local lfs = require "lfs"
+-- texlua has a builtin lfs, use it
+if lfs then
+    lfs_ = lfs
+else
+    _, lfs_ = pcall(require, "lfs")
+end
+local lfs = lfs_
 local ansicolors = require "ansicolors"
 local prompt = require "prompt"
 ---@diagnostic disable: deprecated
@@ -122,7 +128,7 @@ local function get_os()
     if os.getenv("PREFIX") == "/data/data/com.termux/files/usr" then
         return "android"
     end
-    local binary_format = package.cpath:match('([^.]+)$')
+    local binary_format = package.cpath:match('([^.]+)$'):gsub(";$", "")
     if binary_format == "so" then
         return get_distribution()
     elseif binary_format == "dll" then
