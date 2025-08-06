@@ -8,7 +8,9 @@ else
     _, lfs_ = pcall(require, "lfs")
 end
 local lfs = lfs_
-local ansicolors = require "ansicolors"
+local warna = require "warna"
+warna.options.level = 3
+local ansicolors = warna.format
 local prompt = require "prompt"
 ---@diagnostic disable: deprecated
 if table.unpack == nil then table.unpack = unpack end

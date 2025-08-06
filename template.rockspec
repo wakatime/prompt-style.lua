@@ -18,7 +18,7 @@ description = {
 
 dependencies = {
     "lua >= 5.1",
-    "ansicolors",
+    "warna",
     "argparse",
     "luafilesystem",
     "luaprompt"
