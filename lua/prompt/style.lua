@@ -1,13 +1,7 @@
 ---prompt style.
 local os = require "os"
 local table = require "table"
--- texlua has a builtin lfs, use it
-if lfs then
-    lfs_ = lfs
-else
-    _, lfs_ = pcall(require, "lfs")
-end
-local lfs = lfs_
+local lfs = require"lfs"
 local warna = require "warna"
 warna.options.level = 3
 local ansicolors = warna.format
@@ -248,9 +242,9 @@ local function generate_ps1(char, sections)
                 if text ~= "" then
                     text = format:format(text)
                     if last_bg == "" then
-                        ps1 = ps1 .. "%{" .. fg .. " " .. bg .. "bg}" .. text
+                        ps1 = ps1 .. "%{" .. fg .. " bg-" .. bg .. "}" .. text
                     else
-                        ps1 = ps1 .. "%{" .. last_bg .. " " .. bg .. "bg}" .. sep ..
+                        ps1 = ps1 .. "%{" .. last_bg .. " bg-" .. bg .. "}" .. sep ..
                             "%{" .. fg .. "}" .. text
                     end
                     last_bg = bg

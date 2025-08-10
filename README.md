@@ -93,17 +93,17 @@ end
 
 #### [luatex](https://www.luatex.org/)
 
-See [texluap](https://luarocks.org/modules/freed-wu/texluap).
-
-#### [neomutt](https://neomutt.org)
-
-Broken in [upstream](https://github.com/neomutt/neomutt/issues/4328)
+See [texluap](https://texrocks.readthedocs.io/en/latest/topics/texluap.md.html).
 
 ### Lua 5.4
 
 #### [pandoc](https://pandoc.org)
 
 ![pandocp](https://github.com/wakatime/prompt-style.lua/assets/32936898/b556effe-6be7-4cf9-b612-b1283d6de721)
+
+#### [neomutt](https://neomutt.org)
+
+![neomuttp](https://github.com/user-attachments/assets/987820e6-cdb4-4a2b-a190-5ab16c4449b7)
 
 ## Install
 
