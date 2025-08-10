@@ -1,4 +1,4 @@
-#!/usr/bin/env -S sh -c 'neomutt -Belua-source\\ $0'
+#!/usr/bin/env -S sh -c 'neomutt -elua-source\\ $0'
 local utils = require "prompt.utils"
 
 utils.init()
