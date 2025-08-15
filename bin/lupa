@@ -3,10 +3,23 @@
 https://github.com/scoder/lupa/issues/278
 https://gitlab.archlinux.org/archlinux/packaging/packages/python-lupa/-/issues/2
 """
-from lupa.lua54 import LuaRuntime
+
+import sys
 
 if __name__ == "__main__":
+    _, _, version = sys.argv[0].rpartition("lupa")
+    if version == "jit":
+        from lupa.luajit21 import LuaRuntime
+    elif version == "5.1":
+        from lupa.lua51 import LuaRuntime
+    elif version == "5.2":
+        from lupa.lua52 import LuaRuntime
+    elif version == "5.3":
+        from lupa.lua53 import LuaRuntime
+    else:
+        from lupa.lua54 import LuaRuntime
+
     lua = LuaRuntime()
-    lua.require('prompt.utils')
+    lua.require("prompt.utils")
     # use $PYTHONSTARTUP
     lua.eval('require "prompt.utils".main(arg, {})')
