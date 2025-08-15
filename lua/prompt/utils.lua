@@ -131,7 +131,7 @@ function M.process_args(args, parser)
 
                 if not ok or not m then
                     parser:error('unknown luaJIT command or ' ..
-                        'jit.* modules not installed')
+                    'jit.* modules not installed')
                 end
 
                 m.start(unpack(_args))
@@ -224,7 +224,7 @@ end
 ---@param configs string[] | nil
 function M.source_configs(configs)
     configs = configs or { os.getenv('HOME') .. '/.luaprc.lua',
-        os.getenv('HOME') .. '/.config/luaprc.lua' }
+            os.getenv('HOME') .. '/.config/luaprc.lua' }
     for _, name in ipairs(configs) do
         local f = io.open(name, "r")
         if f ~= nil then
@@ -238,6 +238,21 @@ function M.source_configs(configs)
             break
         end
     end
+end
+
+---**entry for pandocp**
+---@param argv string[] command line arguments
+---@param configs string[] | nil `nil` means default `~/.config/luaprc.lua`
+---@param callback function | nil handle `args`
+function M.main(argv, configs, callback)
+    M.init()
+    M.source_configs(configs)
+    local parser = M.get_parser()
+    local args = parser:parse(argv)
+    if callback then
+        args = callback(args)
+    end
+    M.process_args(args, parser)
 end
 
 ---@export

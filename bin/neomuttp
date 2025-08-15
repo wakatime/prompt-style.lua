@@ -1,14 +1,14 @@
 #!/usr/bin/env -S sh -c 'neomutt -elua-source\\ $0'
 local utils = require "prompt.utils"
 
-utils.init()
 -- use ~/.config/neomutt/neomuttrc
--- utils.source_configs()
-local parser = utils.get_parser()
-local args = parser:parse(arg)
-if args.v then
-    mutt.command.version()
-    os.exit(0)
-end
-utils.process_args(args, parser)
+utils.main(arg, {}, function(args)
+    if args.v then
+        -- luacheck: ignore 111 113
+        ---@diagnostic disable: undefined-global
+        mutt.command.version()
+        os.exit(0)
+    end
+    return args
+end)
 -- ex: filetype=lua

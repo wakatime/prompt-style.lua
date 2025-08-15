@@ -14,14 +14,12 @@ if require "prompt".name == "lua" then
     end
 end
 
-utils.init()
 -- use ~/.config/nvim/init.vim
--- utils.source_configs()
-local parser = utils.get_parser()
-local args = parser:parse(arg)
-if args.v then
-    vim.cmd.version()
-    os.exit(0)
-end
-utils.process_args(args, parser)
+utils.main(arg, {}, function(args)
+    if args.v then
+        vim.cmd.version()
+        os.exit(0)
+    end
+    return args
+end)
 -- ex: filetype=lua

@@ -1,9 +1,5 @@
 #!/usr/bin/env -S pandoc -fmarkdown /dev/null --lua-filter
 local utils = require "prompt.utils"
 
-utils.init()
-utils.source_configs()
-local parser = utils.get_parser()
-local args = parser:parse(arg)
-utils.process_args(args, parser)
+utils.main(arg)
 -- ex: filetype=lua

@@ -130,6 +130,7 @@ luarocks install prompt-style
 
 ### Other luas
 
+- [lupa](https://github.com/scoder/lupa): provide an extra `python` module in lua.
 - [wezterm](https://github.com/wez/wezterm):
   - `wezterm --config-file /the/path/weztermp`
   - doesn't support shebang

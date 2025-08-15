@@ -39,14 +39,6 @@ end
 
 build = {
   type = 'builtin',
-  install = {
-      -- cannot use _VERSION
-      bin = {
-          "bin/nvimp",
-          "bin/pandocp",
-          "bin/neomuttp"
-      },
-  },
 }
 
 deploy = {
