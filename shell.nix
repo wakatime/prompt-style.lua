@@ -6,7 +6,6 @@ with pkgs;
 let
   packages = (
     p: with p; [
-      ansicolors
       argparse
       luafilesystem
       luaprompt
