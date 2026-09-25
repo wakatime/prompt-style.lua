@@ -6,6 +6,7 @@ lua = ">=5.1"
 summary = "A lua REPL for neomutt"
 maintainer = "Wu"
 labels = ["neomutt"]
+homepage = "https://github.com/wakatime/prompt-style.lua/tree/main/packages/neomuttp"
 license = "GPL-3.0-only"
 
 [source]

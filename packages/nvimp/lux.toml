@@ -6,6 +6,7 @@ lua = ">=5.1"
 summary = "A lua REPL for neovim"
 maintainer = "Wu"
 labels = ["neovim"]
+homepage = "https://github.com/wakatime/prompt-style.lua/tree/main/packages/nvimp"
 license = "GPL-3.0-only"
 
 [source]

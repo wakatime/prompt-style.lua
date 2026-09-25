@@ -6,6 +6,7 @@ lua = ">=5.1"
 summary = "A lua REPL for lupa"
 maintainer = "Wu"
 labels = ["lupa"]
+homepage = "https://github.com/wakatime/prompt-style.lua/tree/main/packages/lupa"
 license = "GPL-3.0-only"
 
 [source]

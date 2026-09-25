@@ -6,6 +6,7 @@ lua = ">=5.1"
 summary = "A lua REPL for pandoc"
 maintainer = "Wu"
 labels = ["pandoc"]
+homepage = "https://github.com/wakatime/prompt-style.lua/tree/main/packages/pandocp"
 license = "GPL-3.0-only"
 
 [source]
