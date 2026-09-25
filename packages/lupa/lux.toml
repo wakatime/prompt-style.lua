@@ -1,0 +1,26 @@
+package = "lupa"
+version = "0.1.0"
+lua = ">=5.1"
+
+[description]
+summary = "A lua REPL for lupa"
+maintainer = "Wu"
+labels = ["lupa"]
+license = "GPL-3.0-only"
+
+[source]
+url = "https://github.com/wakatime/prompt-style.lua/archive/$(VERSION).zip"
+dir = "prompt-style.lua-$(VERSION)/packages/$(PACKAGE)"
+
+[dependencies]
+prompt-style = ">=0.1.0"
+
+[run]
+type = "command"
+command = "lupa"
+
+[build]
+type = "builtin"
+
+[deploy]
+wrap_bin_scripts = false

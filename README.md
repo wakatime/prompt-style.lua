@@ -60,51 +60,6 @@ customize it.
 See
 [![readthedocs](https://shields.io/readthedocs/prompt-stylelua)](https://prompt-stylelua.readthedocs.io).
 
-## REPLs for many programs containing a lua interpreters
-
-### Lua 5.1/LuaJIT
-
-#### [neovim](https://neovim.io)
-
-![cmd](https://github.com/user-attachments/assets/26a34d2e-7db9-412c-beb3-87b8598294f9)
-
-`~/.config/nvim/init.lua`:
-
-```lua
-local l_flag = false
-for _, arg in ipairs(vim.v.argv) do
-    if l_flag == true then
-        vim.g.script_name = vim.fs.basename(arg)
-        break
-    end
-    if arg == "-l" then
-        l_flag = true
-    end
-end
-if vim.g.script_name == "nvimp" then
-    require"prompt".name = "nvim"
-    loadfile(vim.fs.joinpath(os.getenv("HOME"), ".config", "luaprc.lua"))()
-    -- skip loading unnecessary vim plugins
-    return
-end
-```
-
-### Lua 5.3
-
-#### [luatex](https://www.luatex.org/)
-
-See [texluap](https://texrocks.readthedocs.io/en/latest/topics/texluap.md.html).
-
-### Lua 5.4
-
-#### [pandoc](https://pandoc.org)
-
-![pandocp](https://github.com/wakatime/prompt-style.lua/assets/32936898/b556effe-6be7-4cf9-b612-b1283d6de721)
-
-#### [neomutt](https://neomutt.org)
-
-![neomuttp](https://github.com/user-attachments/assets/987820e6-cdb4-4a2b-a190-5ab16c4449b7)
-
 ## Install
 
 ### [AUR](https://aur.archlinux.org/packages/lua-prompt-style)
@@ -119,18 +74,31 @@ paru -S lua{,51,52,53}-prompt-style
 luarocks install prompt-style
 ```
 
-## Related Projects
+## Configure
 
-### Use neovim as lua interpreter
+You can config it by `~/.config/luaprc.lua` which is used by all programs based
+on [luaprompt](https://github.com/dpapavas/luaprompt).
 
-- [neolua](https://github.com/nvim-neorocks/neorocks): Another lua interpreter
-  based on neovim like `nvimp`. It doesn't provide a REPL like lua.
-- [nlua](https://github.com/mfussenegger/nlua): Another lua interpreter
-  based on neovim like `nvimp`. It doesn't provide a REPL like lua.
+```sh
+local prompt = require'prompt'
+if kpse then
+    -- for texlua
+    kpse.set_program_name'texlua'
+    prompt.history = kpse.expand_path'~' .. '/.lua_history'
+    prompt.prompts = { "> ", "    " }
+elseif vim then
+    -- for nvimp
+    prompt.history = vim.fs.joinpath(vim.fn.stdpath'data', '.lua_history')
+    prompt.prompts = { "> ", "    " }
+else
+    -- for luap
+    prompt.history = (os.getenv'HOME' or os.getenv'USERPROFILE' or '.') .. '/.lua_history'
+    prompt.prompts = { "> ", "    " }
+end
+```
 
-### Other luas
-
-- [lupa](https://github.com/scoder/lupa): provide an extra `python` module in lua.
+- [texluap](https://texrocks.readthedocs.io/en/latest/topics/texluap.md.html):
+  for LuaLaTeX
 - [wezterm](https://github.com/wez/wezterm):
   - `wezterm --config-file /the/path/weztermp`
   - doesn't support shebang
