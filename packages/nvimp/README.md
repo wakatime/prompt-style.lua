@@ -2,26 +2,42 @@
 
 ![cmd](https://github.com/user-attachments/assets/26a34d2e-7db9-412c-beb3-87b8598294f9)
 
-`~/.config/nvim/init.lua`:
+## Install
 
-```lua
-local l_flag = false
-for _, arg in ipairs(vim.v.argv) do
-    if l_flag == true then
-        vim.g.script_name = vim.fs.basename(arg)
-        break
-    end
-    if arg == "-l" then
-        l_flag = true
-    end
-end
-if vim.g.script_name == "nvimp" then
-    require"prompt".name = "nvim"
-    loadfile(vim.fs.joinpath(os.getenv("HOME"), ".config", "luaprc.lua"))()
-    -- skip loading unnecessary vim plugins
-    return
-end
+### rocks.nvim
+
+#### Command style
+
+```vim
+:Rocks install nvimp
 ```
+
+#### Declare style
+
+`~/.config/nvim/rocks.toml`:
+
+```toml
+[plugins]
+"nvimp" = "scm"
+```
+
+Then
+
+```vim
+:Rocks sync
+```
+
+or:
+
+```sh
+$ luarocks --lua-version 5.1 --local --tree ~/.local/share/nvim/rocks install nvimp
+# ~/.local/share/nvim/rocks is the default rocks tree path
+# you can change it according to your vim.g.rocks_nvim.rocks_path
+```
+
+## [Configure File](https://github.com/dpapavas/luaprompt)
+
+`~/.config/nvim/init.lua`
 
 ## Alternatives
 

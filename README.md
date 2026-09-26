@@ -54,7 +54,7 @@ prompt.prompts = { style.generate_ps1(), "    " }
 
 If there is a git repository, the project name can be achieved by git. Else use
 the base name of current working directory.
-You can call `(require "prompt.style").wakatime("wakatime-cli XXX")` to
+You can call `require "prompt.style".wakatime "wakatime-cli XXX"` to
 customize it.
 
 See
@@ -65,7 +65,7 @@ See
 ### [AUR](https://aur.archlinux.org/packages/lua-prompt-style)
 
 ```sh
-paru -S lua{,51,52,53}-prompt-style
+paru -S lua{,51,52,53,54}-prompt-style
 ```
 
 ### [Luarocks](https://luarocks.org/modules/Freed-Wu/prompt-style)
@@ -74,30 +74,9 @@ paru -S lua{,51,52,53}-prompt-style
 luarocks install prompt-style
 ```
 
-## Configure
+## Other Lua REPLs
 
-You can config it by `~/.config/luaprc.lua` which is used by all programs based
-on [luaprompt](https://github.com/dpapavas/luaprompt).
-
-```sh
-local prompt = require'prompt'
-if kpse then
-    -- for texlua
-    kpse.set_program_name'texlua'
-    prompt.history = kpse.expand_path'~' .. '/.lua_history'
-    prompt.prompts = { "> ", "    " }
-elseif vim then
-    -- for nvimp
-    prompt.history = vim.fs.joinpath(vim.fn.stdpath'data', '.lua_history')
-    prompt.prompts = { "> ", "    " }
-else
-    -- for luap
-    prompt.history = (os.getenv'HOME' or os.getenv'USERPROFILE' or '.') .. '/.lua_history'
-    prompt.prompts = { "> ", "    " }
-end
-```
-
-- [texluap](https://texrocks.readthedocs.io/en/latest/topics/texluap.md.html):
+- [texlua](https://github.com/ustctug/texrocks/):
   for LuaLaTeX
 - [wezterm](https://github.com/wez/wezterm):
   - `wezterm --config-file /the/path/weztermp`

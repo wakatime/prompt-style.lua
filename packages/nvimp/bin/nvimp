@@ -1,25 +1,24 @@
 #!/usr/bin/env -S nvim --headless -l
-local utils = require "prompt.utils"
+-- luacheck: ignore 111 113
+---@diagnostic disable: undefined-global
+local M = {}
 
-if require "prompt".name == "lua" then
+---source configs
+function M.source_user_configs()
     -- luacheck: ignore 111 113
     ---@diagnostic disable: undefined-global
+    -- ~/.config/nvim/init.vim
     local file = vim.fs.joinpath(vim.fn.stdpath("config"), "init.vim")
     if vim.fn.filereadable(file) == 1 then
         vim.cmd.source(file)
     end
+    -- ~/.config/nvim/init.lua
     file = vim.fs.joinpath(vim.fn.stdpath("config"), "init.lua")
     if vim.fn.filereadable(file) == 1 then
         loadfile(file)()
     end
 end
 
--- use ~/.config/nvim/init.vim
-utils.main(arg, {}, function(args)
-    if args.v then
-        vim.cmd.version()
-        os.exit(0)
-    end
-    return args
-end)
+M.source_user_configs()
+require "prompt.repl".main(arg)
 -- ex: filetype=lua
