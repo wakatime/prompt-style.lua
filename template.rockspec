@@ -19,7 +19,7 @@ description = {
 dependencies = {
     "lua >= 5.1",
     "warna",
-    "argparse",
+    "argparse-temp",
     "platformdirs",
     "luafilesystem",
     "luaprompt"
