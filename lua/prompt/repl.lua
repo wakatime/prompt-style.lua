@@ -1,5 +1,5 @@
 ---REPL.
-local argparse = require "argparse"
+local argparse = require "argparse-temp"
 local style = require "prompt.style"
 local utils = require "prompt.utils"
 local M = {}
