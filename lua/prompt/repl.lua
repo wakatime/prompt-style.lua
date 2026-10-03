@@ -245,7 +245,8 @@ function M.process_args(args, parser)
         local name
 
         if #args.SCRIPT > 0 then
-            name = table.remove(args.SCRIPT, 1)
+            -- not remove it!
+            name = args.SCRIPT[1]
         else
             name = "-"
         end
@@ -261,8 +262,9 @@ function M.process_args(args, parser)
             -- to some extent.  Arguments prior to the script name are not
             -- passed.
 
+            -- shift arg[0] to the script name
             -- luacheck: ignore 121
-            arg = utils.shift(arg, #args.SCRIPT)
+            arg = utils.shift(arg, #arg - #args.SCRIPT + 1)
             prompt.call(chunk, unpack(args.SCRIPT))
         else
             print(message)
