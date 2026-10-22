@@ -19,6 +19,10 @@ jobs:
       - uses: lumen-oss/luarocks-tag-release@v9
         env:
           LUX_API_KEY: ${{secrets.LUAROCKS_API_KEY}}
+          HISTORY_INCDIR: /usr/include
+          HISTORY_LIBDIR: /usr/lib/x86_64-linux-gnu
+          READLINE_INCDIR: /usr/include
+          READLINE_LIBDIR: /usr/lib/x86_64-linux-gnu
         with:
           name: prompt-style
           dependencies: |
