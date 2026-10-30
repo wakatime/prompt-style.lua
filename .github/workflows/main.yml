@@ -8,21 +8,23 @@
       - "**.md"
   workflow_dispatch:
 
+# https://github.com/softprops/action-gh-release/issues/236
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: |
+      - name: Install dependencies
+        run: |
           sudo apt-get -y update
           sudo apt-get -y install libreadline-dev
+      - uses: actions/checkout@v7
       - uses: lumen-oss/luarocks-tag-release@v9
         env:
-          LUX_API_KEY: ${{secrets.LUAROCKS_API_KEY}}
-          HISTORY_INCDIR: /usr/include
+          LUX_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
           HISTORY_LIBDIR: /usr/lib/x86_64-linux-gnu
-          READLINE_INCDIR: /usr/include
-          READLINE_LIBDIR: /usr/lib/x86_64-linux-gnu
         with:
           name: prompt-style
           dependencies: |
@@ -31,26 +33,24 @@ jobs:
             argparse-temp
             warna
             luafilesystem
-
-  deploy-aur:
-    needs: build
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
-    steps:
-      - uses: Freed-Wu/update-aur-package@v1.0.11
+      - name: Pack
+        env:
+          HISTORY_LIBDIR: /usr/lib/x86_64-linux-gnu
+        run: |
+          lx --lua-version=5.1 pack
+      - uses: actions/upload-artifact@v7
+        if: "! startsWith(github.ref, 'refs/tags/')"
+        with:
+          path: |
+            *.rock
+      - uses: softprops/action-gh-release@v3
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          package_name: lua-prompt-style
-          ssh_private_key: ${{secrets.AUR_SSH_PRIVATE_KEY}}
-
-  deploy-nur:
-    needs: build
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
-    steps:
-      - name: Trigger Workflow
-        run: >
-          curl -X POST -d '{"ref":"main"}'
-          -H "Accept: application/vnd.github.v3+json"
-          -H "Authorization: Bearer ${{secrets.GH_TOKEN}}"
-          https://api.github.com/repos/Freed-Wu/nur-packages/actions/workflows/version.yml/dispatches
+          files: |
+            *.rock
+      - name: Upload
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          scripts/upload.sh ./*.rock
+        env:
+          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
