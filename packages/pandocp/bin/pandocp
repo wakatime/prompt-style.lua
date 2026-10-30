@@ -44,14 +44,8 @@ function M.set_path(trees)
     local version = M.get_version()
     local ext = package.cpath:match('([^.]+)$')
     for _, tree in ipairs(trees) do
-        local lua_dir = tree.lua_dir
-        local lib_dir = tree.lib_dir
-        if lua_dir == nil then
-            lua_dir = tree.root .. "/share/lua/" .. version
-        end
-        if lib_dir == nil then
-            lib_dir = tree.root .. "/lib/lua/" .. version
-        end
+        local lua_dir = tree.lua_dir or tree.root .. "/share/lua/" .. version
+        local lib_dir = tree.lib_dir or tree.root .. "/lib/lua/" .. version
         package.path = package.path .. ";" .. lua_dir .. "/?.lua;" .. lua_dir .. "/?/init.lua"
         package.cpath = package.cpath .. ";" .. lib_dir .. "/?." .. ext
     end
