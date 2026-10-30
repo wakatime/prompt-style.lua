@@ -6,6 +6,16 @@ function M.get_version()
     return _VERSION:match("%d[%d.]*%d") or "5.4"
 end
 
+---@return table
+function M.get_luarocks_config()
+    local version = M.get_version()
+    local luarocks_config = { os_getenv = M.os_getenv, home = M.os_getenv("HOME") or '.' }
+    -- ~/.config/luarocks/config-5.1.lua
+    loadfile(luarocks_config.home .. "/.config/luarocks/config-" .. version .. ".lua",
+        "t", luarocks_config)()
+    return luarocks_config
+end
+
 ---@return boolean
 function M.is_venv()
     local version = M.get_version()
@@ -25,22 +35,32 @@ end
 
 ---add ~/.local/share/lua/5.1 to package.path
 ---add ~/.local/lib/lua/5.1 to package.cpath
-function M.set_path()
+---@param trees table
+function M.set_path(trees)
     if M.is_venv() then
         return
     end
     local expand = M.expand
     local version = M.get_version()
     local ext = package.cpath:match('([^.]+)$')
+    for _, tree in ipairs(trees) do
+        local lua_dir = tree.lua_dir
+        local lib_dir = tree.lib_dir
+        if lua_dir == nil then
+            lua_dir = tree.root .. "/share/lua/" .. version
+        end
+        if lib_dir == nil then
+            lib_dir = tree.root .. "/lib/lua/" .. version
+        end
+        package.path = package.path .. ";" .. lua_dir .. "/?.lua;" .. lua_dir .. "/?/init.lua"
+        package.cpath = package.cpath .. ";" .. lib_dir .. "/?." .. ext
+    end
     package.path = package.path
         .. ";./share/lua/" .. version .. "/?.lua;./?.lua;./?/init.lua;;"
-        .. ";" .. expand("~/.local/share/lua/") .. version .. "/?.lua"
-        .. ";" .. expand("~/.local/share/lua/") .. version .. "/?/init.lua"
         .. ";" .. expand("~/.local/state/nix/profile/share/lua/") .. version .. "/?.lua"
         .. ";" .. expand("~/.local/state/nix/profile/share/lua/") .. version .. "/?/init.lua"
     package.cpath = package.cpath
         .. ";./lib/lua/" .. version .. "/?." .. ext .. ";./?." .. ext
-        .. ";" .. expand("~/.local/lib/lua/") .. version .. "/?." .. ext
         .. ";" .. expand("~/.local/state/nix/profile/share/lua/") .. version .. "/?." .. ext
     local f = io.open("/run/current-system/nixos-version")
     if f then
@@ -63,6 +83,6 @@ function M.set_path()
     end
 end
 
-M.set_path()
+M.set_path(M.get_luarocks_config().rocks_trees)
 require "prompt.repl".main(arg)
 -- ex: filetype=lua
