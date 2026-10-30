@@ -2,6 +2,7 @@
 local argparse = require "argparse-temp"
 local style = require "prompt.style"
 local utils = require "prompt.utils"
+local datafile = require 'datafile'
 local M = {}
 
 ---get a parser with same command line options as lua
@@ -97,15 +98,20 @@ end
 ---source configs
 ---@param configs string[]?
 function M.source_user_configs(configs)
-    local PlatformDirs = require "platformdirs".PlatformDirs
-    configs = configs or { PlatformDirs { appname = "luaprc.lua" }:user_config_dir() }
+    configs = configs or { "luaprc.lua" }
     for _, name in ipairs(configs) do
-        local f = io.open(name)
-        if f ~= nil then
+        local f, path = datafile.open(name, 'r', 'config')
+        if f then
+            local text = f:read "*a"
             io.close(f)
-            local chunk, message = loadfile(name)
+            local loadstring = loadstring or load
+            local chunk, message = loadstring(text)
             if chunk then
                 chunk()
+                -- luacheck: ignore 111 113
+                ---@diagnostic disable: undefined-global
+            elseif vim then
+                vim.notify(message or path)
             else
                 print(message)
             end
@@ -118,9 +124,9 @@ end
 ---@param args table
 ---@return table
 function M.callback(args)
-    -- luacheck: ignore 111 113
-    ---@diagnostic disable: undefined-global
     if args.v then
+        -- luacheck: ignore 111 113
+        ---@diagnostic disable: undefined-global
         if vim then
             vim.cmd.version()
         elseif mutt then

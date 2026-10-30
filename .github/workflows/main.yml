@@ -26,11 +26,11 @@ jobs:
         with:
           name: prompt-style
           dependencies: |
+            luaprompt
+            datafile
             argparse-temp
             warna
-            platformdirs
             luafilesystem
-            luaprompt
 
   deploy-aur:
     needs: build
