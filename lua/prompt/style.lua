@@ -2,7 +2,6 @@
 local os = require "os"
 
 local lfs = require "lfs"
-local uv = require "vim.uv"
 local warna = require "warna"
 warna.options.level = 3
 local ansicolors = warna.format
@@ -123,12 +122,12 @@ local function get_os()
     if os.getenv("ANDROID_DATA") == "/data" and os.getenv("ANDROID_ROOT") == "/system" then
         return "android"
     end
-    local sysname = uv.os_uname().sysname:lower()
-    if sysname:find('linux') or sysname:find('unix') then
+    local binary_format = package.cpath:match('([^.;]+);*$')
+    if binary_format == "so" then
         return get_distribution()
-    elseif sysname:find('windows') or sysname:find('mingw') then
+    elseif binary_format == "dll" then
         return "windows"
-    elseif sysname:find('macos') then
+    elseif binary_format == "dylib" then
         return "macos"
     end
     return "unknown"
